@@ -14,7 +14,7 @@ class GenericTorchDataset(GenericParsable, Dataset):
     """
 
     def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.raw_dataset = kwargs.get("raw_dataset")
 
@@ -39,7 +39,7 @@ class GenericTorchDataset(GenericParsable, Dataset):
                 If the property has not been assigned.
 
         """
-        if self.dataset_parameters is None:
+        if self._dataset_parameters is None:
             loghandler.log_and_raise(AttributeError, "The dataset parameters have not been set.")
         return self._dataset_parameters
 
@@ -85,7 +85,7 @@ class GenericTorchDataset(GenericParsable, Dataset):
             loghandler.log_and_raise(AttributeError, "The raw dataset has not been set.")
         return self._raw_dataset
 
-    @raw_dataset.setter()
+    @raw_dataset.setter
     @GenericTorchDatasetParameters.static_class_setter()
     def raw_dataset(self, input_value: Optional[pd.DataFrame]):
         """Sets the raw dataset.
@@ -104,21 +104,21 @@ class GenericTorchDataset(GenericParsable, Dataset):
         else:
             loghandler.log_and_raise(TypeError, f"Invalid input type [{type(input_value)}] for raw dataset.")
 
-    @abc.abstactmethod
-    def load_raw_dataset(self):
-        """Loads the raw dataset from the filename in the parameters."""
-        pass  # pragma: no cover
+    # @abc.abstractmethod
+    # def load_raw_dataset(self):
+    #     """Loads the raw dataset from the filename in the parameters."""
+    #     pass  # pragma: no cover
 
     # ---------------------------------------------------------------------------------------------------------------- #
     # --- Dataset Creation Methods ----------------------------------------------------------------------------------- #
     # ---------------------------------------------------------------------------------------------------------------- #
 
-    @abc.abstractmethod
-    def create_raw_dataset(self, *args, **kwargs):
-        """Populates the raw dataset from the relevant parameters in the GenericTorchDatasetParameters."""
-        pass  # pragma: no cover
+    # @abc.abstractmethod
+    # def create_raw_dataset(self, *args, **kwargs):
+    #    """Populates the raw dataset from the relevant parameters in the GenericTorchDatasetParameters."""
+    #     pass  # pragma: no cover
 
-    @abc.abstractmethod
-    def visualize_sample(self, *args, **kwargs):
-        """Method to visualize individual samples/rows in the dataset"""
-        pass  # pragma: no cover
+    # @abc.abstractmethod
+    # def visualize_sample(self, *args, **kwargs):
+    #     """Method to visualize individual samples/rows in the dataset"""
+    #     pass  # pragma: no cover
